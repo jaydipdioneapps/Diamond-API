@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 
 const Item_masterSchema = mongoose.Schema({
-    Type: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
+    type: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
     refno: { type: String, default: "" },
-    Color: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
-    Clarity: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
-    Shape: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
-    Size: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
+    color: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
+    clarity: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
+    shape: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
+    size: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
     lotno: { type: String, default: "" },
     kapan: { type: String, default: "" },
     asking_rate: { type: String, default: "" },
     cost: { type: String, default: "" },
     stock_value: { type: String, default: "" },
-    Remarks: { type: String, default: "" },
+    remarks: { type: String, default: "" },
     responsibility: { type: String, default: "" },
     pair: { type: String, default: "" },
     certificate_no: { type: String, default: "" },
@@ -43,7 +43,7 @@ const Item_masterSchema = mongoose.Schema({
     current_date: { type: Date, default: "" },
     current_time: { type: Date, default: "" },
     user_id: { type: String, default: "" },
-    Branch_id: { type: String, default: "" },
+    branch_id: { type: String, default: "" },
     master_country_id: { type: String, default: "" },
 });
 

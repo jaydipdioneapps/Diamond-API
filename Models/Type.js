@@ -12,7 +12,7 @@ const TypeSchema = mongoose.Schema({
     st_name: { type: String, default: "" },
     date: { type: Date, default: "" },
     time: { type: Date, default: "" },
-    Branch_id: { type: String, default: "" },
+    branch_id: { type: String, default: "" },
     master_country_id: { type: String, default: "" },
 });
 

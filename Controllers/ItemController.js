@@ -3,23 +3,23 @@ const item_master = require("../Models/item_master");
 
 exports.lotEntry = async function (req, res, next) {
     try {
-        // let data = {
-        //     Type: req.body.Type,
-        //     kapan: req.body.kapan,
-        //     Ref_no: req.body.Ref_no,
-        //     Color: req.body.Color,
-        //     Clarity: req.body.Clarity,
-        //     Shape: req.body.Shape,
-        //     Size: req.body.Size,
-        //     lotno: req.body.lotno,
-        //     certificate_no: req.body.certificate_no,
-        //     Remarks: req.body.Remarks,
-        // };
-        // let data = req.body;
-        let addData = await item_master.create(req.body);
+        let data = req.body;
+        for (let i = 0; i < data.length; i++) {
+            data[i].type = data[i].type.id;
+            data[i].color = data[i].color.id;
+            data[i].clarity = data[i].clarity.id;
+            data[i].shape = data[i].shape.id;
+            data[i].size = data[i].size.id;
+        }
+        // let addData = await item_master.create(
+        //     req.body.index[1]
+        // );
+        let addData = await item_master.insertMany(data)
+
+        console.log(data);
         res.status(200).json({
             status: "200",
-            addData,
+            addData
         });
     } catch (err) {
         res.status(200).json({
@@ -31,8 +31,12 @@ exports.lotEntry = async function (req, res, next) {
 
 exports.getlots = async function (req, res, next) {
     try {
-        let addData = await item_master.find()
-            .select("lotno")
+        let addData = await item_master.find({},
+            {
+                refno: 1,
+                lotno: 1,
+                kapan: 1
+            })
         res.status(200).json({
             status: "200",
             addData,

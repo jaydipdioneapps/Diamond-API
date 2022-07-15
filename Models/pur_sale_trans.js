@@ -27,7 +27,7 @@ const pur_sale_transSchema = mongoose.Schema({
     u_u_id: { type: String, default: "" },
     u_date: { type: Date, default: "" },
     u_time: { type: Date, default: "" },
-    Branch_id: { type: String, default: "" },
+    branch_id: { type: String, default: "" },
     master_country_id: { type: String, default: "" },
 });
 

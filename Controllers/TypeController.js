@@ -76,8 +76,8 @@ exports.gettypes = async function (req, res, next) {
         let Primery_arry = {};
         for (let index = 0; index < addData.length; index++) {
             let type = addData[index].type;
-            let Secendory_arry = await Type.find({"type" : type });
-            console.log(type);
+            let Secendory_arry = await Type.find({ "type": type });
+            // console.log(type);
             Primery_arry[type] = Secendory_arry;
         }
         Primery_arry = [Primery_arry];

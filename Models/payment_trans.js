@@ -17,7 +17,7 @@ const payment_transSchema = mongoose.Schema({
     current_date: { type: Date, default: "" },
     current_time: { type: Date, default: "" },
     user_id: { type: String, default: "" },
-    Branch_id: { type: String, default: "" },
+    branch_id: { type: String, default: "" },
     master_country_id: { type: String, default: "" },
 });
 

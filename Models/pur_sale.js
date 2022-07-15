@@ -41,7 +41,7 @@ const pur_saleSchema = mongoose.Schema({
     u_date: { type: Date, default: "" },
     u_time: { type: Date, default: "" },
     status: { type: String, default: "" },
-    Branch_id: { type: String, default: "" },
+    branch_id: { type: String, default: "" },
     master_country_id: { type: String, default: "" },
 });
 

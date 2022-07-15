@@ -11,8 +11,8 @@ const userSchema = mongoose.Schema({
   add: { type: String, default: "" },
   delete: { type: String, default: "" },
   edit: { type: String, default: "" },
-  a_Status: { type: String, default: "" },
-  Branch_id: { type: String, default: "" },
+  a_status: { type: String, default: "" },
+  branch_id: { type: String, default: "" },
   master_country_id: { type: String, default: "" },
 });
 
