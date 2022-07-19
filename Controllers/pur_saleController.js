@@ -2,6 +2,7 @@ var User = require("../Models/pur_sale");
 const mongoose = require("mongoose");
 const pur_sale = require("../Models/pur_sale");
 const pur_sale_trans = require("../Models/pur_sale_trans");
+const moment = require("moment");
 
 exports.pur_saleEntry = async function (req, res, next) {
     try {
@@ -41,6 +42,11 @@ exports.get_pur_saleEntry = async function (req, res, next) {
     try {
         // let data = req.body;
         let Data = await pur_sale.find();
+        // var g = new Date();
+        for (let i = 0; i < Data.length; i++) {
+            const element = Data[moment(i).format("YYYY-MM-DD[T00:00:00.000Z]")];
+            console.log(Data);
+        }
         res.status(200).json({
             status: "200",
             data: Data[0],

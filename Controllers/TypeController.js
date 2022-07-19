@@ -1,6 +1,8 @@
 var User = require("../Models/pur_sale");
 const mongoose = require("mongoose");
 const Type = require("../Models/Type");
+const CC = require("currency-converter-lt");
+const party_master = require("../Models/party_master");
 
 function removeDubeliment(arr) {
     let duplicateIds = Object.values(
@@ -84,6 +86,44 @@ exports.gettypes = async function (req, res, next) {
         res.status(200).json({
             status: "200",
             Primery_arry,
+        });
+    } catch (err) {
+        res.status(200).json({
+            status: "500",
+            message: err.message,
+        });
+    }
+}
+
+exports.getEntryType = async function (req, res, next) {
+    try {
+        let fromCurrency = "USD";
+        let toCurrency = "PKR";
+        let amountToConvert = 1;
+        //   let currencyConverter = new CC({
+        //     form: fromCurrency,
+        //     to: toCurrency,
+        //     amount: 3,
+        //   });
+        let currencyConverter = new CC({ from: "USD", to: "INR", amount: 1 })
+        let addData = await Type.find({ type: "ENTRY_TYPE" },
+            {
+                priority: 1,
+                type: 1,
+                name: 1
+            })
+        let party = await party_master.find({},
+            {
+                name: 1
+            });
+        currencyConverter.convert().then((response) => {
+
+            res.status(200).json({
+                status: "200",
+                addData,
+                india: response,
+                party
+            });
         });
     } catch (err) {
         res.status(200).json({

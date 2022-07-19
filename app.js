@@ -19,6 +19,7 @@ app.use(cors({
 }))
 app.use("/pur_sale", require("./routes/pur_saleEntry"));
 app.use("/types", require("./routes/Item"));
+app.use("/party", require("./routes/Party"));
 app.use("/", require("./routes/index"));
 
 app.use((req, res, next) => {
