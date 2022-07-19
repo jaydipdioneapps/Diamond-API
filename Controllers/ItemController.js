@@ -16,7 +16,7 @@ exports.lotEntry = async function (req, res, next) {
         // );
         let addData = await item_master.insertMany(data)
 
-        console.log(data);
+        // console.log(data);
         res.status(200).json({
             status: "200",
             addData

@@ -114,7 +114,10 @@ exports.getEntryType = async function (req, res, next) {
             })
         let party = await party_master.find({},
             {
-                name: 1
+                name: 1,
+                broker: 1,
+                due_days: 1,
+                overdue: 1
             });
         currencyConverter.convert().then((response) => {
 
