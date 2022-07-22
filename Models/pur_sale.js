@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const pur_saleSchema = mongoose.Schema({
     inv_type: { type: Boolean, required: true },
-    date: { type: Date, default: Date.now },
+    date: { type: Date, default: new Date().toISOString().slice(0, 10) },
     type: { type: String, default: "" },
-    inv_no: { type: Number, default: "" },
+    inv_no: { type: Number, required: true, unique: true },
     bill_no: { type: Number, default: "" },
     party: { type: String, default: "" },
     due_days: { type: String, default: "" },
@@ -19,7 +19,7 @@ const pur_saleSchema = mongoose.Schema({
     tax_amount: { type: Number, default: "" },
     curr_amount: { type: Number, default: "" },
     final_amount: { type: Number, default: "" },
-    currency: { type: Number, default: "USD" },
+    currency: { type: String, default: "USD" },
     rate: { type: Number, default: "" },
     final_amount_local: { type: Number, default: "" },
     paid_amount: { type: Number, default: "" },

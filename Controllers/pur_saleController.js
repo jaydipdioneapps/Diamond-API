@@ -25,10 +25,12 @@ exports.pur_saleEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        let addData = await pur_sale.create(req.body);
+        let addData = await pur_sale.create(req.body[0]);
+        let addtransData = await pur_sale_trans.create(req.body[1]);
         res.status(200).json({
             status: "200",
             addData,
+            addtransData
         });
     } catch (err) {
         res.status(200).json({
@@ -43,10 +45,10 @@ exports.get_pur_saleEntry = async function (req, res, next) {
         // let data = req.body;
         let Data = await pur_sale.find();
         // var g = new Date();
-        for (let i = 0; i < Data.length; i++) {
-            const element = Data[moment(i).format("YYYY-MM-DD[T00:00:00.000Z]")];
-            console.log(Data);
-        }
+        // for (let i = 0; i < Data.length; i++) {
+        //     let eliment = moment(Data[i].due_date).format("l");
+        //     console.log(eliment);
+        // }
         res.status(200).json({
             status: "200",
             data: Data[0],
@@ -59,7 +61,7 @@ exports.get_pur_saleEntry = async function (req, res, next) {
     }
 };
 
-exports.pur_saleEntryTBL = async function (req, res, next) {
+exports.pur_sale_trans = async function (req, res, next) {
     try {
         let data = req.body;
         let addData = await pur_sale_trans.create(data);
@@ -75,9 +77,10 @@ exports.pur_saleEntryTBL = async function (req, res, next) {
     }
 };
 
-exports.getpurchaseTBL = async function (req, res, next) {
+exports.get_pur_sale_trans = async function (req, res, next) {
     try {
-        let data = await User.findById(req.body.userId);
+        const id = req.params.transentryId;
+        let data = await pur_sale_trans.find({ p_s_id: id });
         // let addData = await User.create(data);
         res.status(200).json({
             status: "200",
@@ -91,29 +94,33 @@ exports.getpurchaseTBL = async function (req, res, next) {
     }
 };
 
-// exports.updatepurchase = async function (req, res, next) {
-//     try {
-//         let newdata = await User.findByIdAndUpdate(req.body.userId,
-//             {
-//                 purchase: req.body.purchase,
-//                 bill_no: req.body.bill_no,
-//                 party: req.body.party,
-//                 broker: req.body.broker,
-//                 over_due: req.body.over_due,
-//                 type: req.body.type,
-//                 p_r_type: req.body.p_r_type,
-//                 adat: req.body.adat,
-//                 adat_amt: req.body.adat_amt,
-//                 over_due_date: req.body.over_due_date
-//             })
-//         res.status(200).json({
-//             status: "200",
-//             data: newdata,
-//         });
-//     } catch (err) {
-//         res.status(200).json({
-//             status: "500",
-//             message: err.message,
-//         });
-//     }
-// };
+exports.update_pur_sale = async function (req, res, next) {
+    try {
+        let newdata = await pur_sale.findOneAndUpdate({ _no: req.params.inv_no }, req.body)
+        res.status(200).json({
+            status: "200",
+            data: newdata,
+        });
+    } catch (err) {
+        res.status(200).json({
+            status: "500",
+            message: err.message,
+        });
+    }
+};
+
+exports.delete_pur_sale = async function (req, res, next) {
+    try {
+        const record = req.params.inv_no;
+        await pur_sale.deleteOne({ record: record })
+        res.status(200).json({
+            status: "200",
+            data: record,
+        });
+    } catch (err) {
+        res.status(200).json({
+            status: "500",
+            message: err.message,
+        });
+    }
+};
