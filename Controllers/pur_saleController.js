@@ -25,12 +25,10 @@ exports.pur_saleEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        let addData = await pur_sale.create(req.body[0]);
-        let addtransData = await pur_sale_trans.create(req.body[1]);
+        let addData = await pur_sale.create(req.body);
         res.status(200).json({
             status: "200",
             addData,
-            addtransData
         });
     } catch (err) {
         res.status(200).json({
@@ -51,7 +49,7 @@ exports.get_pur_saleEntry = async function (req, res, next) {
         // }
         res.status(200).json({
             status: "200",
-            data: Data[0],
+            data: Data,
         });
     } catch (err) {
         res.status(200).json({
