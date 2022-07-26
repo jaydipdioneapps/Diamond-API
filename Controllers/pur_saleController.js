@@ -1,6 +1,6 @@
 var User = require("../Models/pur_sale");
 const mongoose = require("mongoose");
-const pur_sale = require("../Models/pur_sale");
+const Pur_sale = require("../Models/pur_sale");
 const pur_sale_trans = require("../Models/pur_sale_trans");
 const moment = require("moment");
 
@@ -25,7 +25,7 @@ exports.pur_saleEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        let addData = await pur_sale.create(req.body);
+        let addData = await Pur_sale.create(req.body);
         res.status(200).json({
             status: "200",
             addData,
@@ -38,26 +38,26 @@ exports.pur_saleEntry = async function (req, res, next) {
     }
 };
 
-exports.get_pur_saleEntry = async function (req, res, next) {
-    try {
-        // let data = req.body;
-        let Data = await pur_sale.find();
-        // var g = new Date();
-        // for (let i = 0; i < Data.length; i++) {
-        //     let eliment = moment(Data[i].due_date).format("l");
-        //     console.log(eliment);
-        // }
-        res.status(200).json({
-            status: "200",
-            data: Data,
-        });
-    } catch (err) {
-        res.status(200).json({
-            status: "500",
-            message: err.message,
-        });
-    }
-};
+// exports.get_pur_saleEntry = async function (req, res, next) {
+//     try {
+//         // let data = req.body;
+//         let Data = await pur_sale.find();
+//         // var g = new Date();
+//         // for (let i = 0; i < Data.length; i++) {
+//         //     let eliment = moment(Data[i].due_date).format("l");
+//         //     console.log(eliment);
+//         // }
+//         res.status(200).json({
+//             status: "200",
+//             data: Data,
+//         });
+//     } catch (err) {
+//         res.status(200).json({
+//             status: "500",
+//             message: err.message,
+//         });
+//     }
+// };
 
 exports.pur_sale_trans = async function (req, res, next) {
     try {
@@ -75,14 +75,17 @@ exports.pur_sale_trans = async function (req, res, next) {
     }
 };
 
-exports.get_pur_sale_trans = async function (req, res, next) {
+exports.get_pur_saleEntry = async function (req, res, next) {
     try {
-        const id = req.params.transentryId;
-        let data = await pur_sale_trans.find({ p_s_id: id });
-        // let addData = await User.create(data);
+        let newdata
+        if (req.params.type == 'bill') {
+            newdata = await Pur_sale.find({ bill_no: req.params.no });
+        } else if (req.params.type == 'inv') {
+            newdata = await Pur_sale.find({ inv_no: req.params.no });
+        }
         res.status(200).json({
             status: "200",
-            data,
+            addData: newdata,
         });
     } catch (err) {
         res.status(200).json({
@@ -94,7 +97,12 @@ exports.get_pur_sale_trans = async function (req, res, next) {
 
 exports.update_pur_sale = async function (req, res, next) {
     try {
-        let newdata = await pur_sale.findOneAndUpdate({ _no: req.params.inv_no }, req.body)
+        let newdata
+        if (req.params.type == 'bill') {
+            newdata = await Pur_sale.findOneAndUpdate({ bill_no: req.params.no }, req.body);
+        } else if (req.params.type == 'inv') {
+            newdata = await Pur_sale.findOneAndUpdate({ inv_no: req.params.no }, req.body);
+        }
         res.status(200).json({
             status: "200",
             data: newdata,
@@ -109,11 +117,16 @@ exports.update_pur_sale = async function (req, res, next) {
 
 exports.delete_pur_sale = async function (req, res, next) {
     try {
-        const record = req.params.inv_no;
-        await pur_sale.deleteOne({ record: record })
+        let newdata
+        if (req.params.type == 'bill') {
+            newdata = await Pur_sale.findOneAndDelete({ bill_no: req.params.no }, req.body);
+        } else if (req.params.type == 'inv') {
+            newdata = await Pur_sale.findOneAndDelete({ inv_no: req.params.no }, req.body);
+        }
         res.status(200).json({
             status: "200",
-            data: record,
+            message: "delete successfully",
+            deleted_data: newdata,
         });
     } catch (err) {
         res.status(200).json({
