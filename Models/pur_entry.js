@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const pur_saleSchema = mongoose.Schema({
-    inv_type: { type: Boolean, default: false },
+const purchaseSchema = mongoose.Schema({
+    inv_type: { type: String, required: true },
     date: { type: Date, required: true },
     type: { type: String, required: true },
     inv_no: { type: Number, required: true },
@@ -73,4 +73,4 @@ const pur_saleSchema = mongoose.Schema({
     ],
 });
 
-module.exports = mongoose.model("Pur_sale", pur_saleSchema);
+module.exports = mongoose.model("Pur_entry", purchaseSchema);

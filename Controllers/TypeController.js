@@ -1,9 +1,9 @@
-var User = require("../Models/pur_sale");
+var User = require("../Models/pur_entry");
 const mongoose = require("mongoose");
 const Type = require("../Models/Type");
 const CC = require("currency-converter-lt");
 const party_master = require("../Models/party_master");
-const pur_sale = require("../Models/pur_sale");
+const pur_sale = require("../Models/pur_entry");
 
 function removeDubeliment(arr) {
     let duplicateIds = Object.values(

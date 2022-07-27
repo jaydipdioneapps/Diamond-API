@@ -1,10 +1,8 @@
-var User = require("../Models/pur_sale");
 const mongoose = require("mongoose");
-const Pur_sale = require("../Models/pur_sale");
-const pur_sale_trans = require("../Models/pur_sale_trans");
+const Pur_entry = require("../Models/pur_entry");
 const moment = require("moment");
 
-exports.pur_saleEntry = async function (req, res, next) {
+exports.purchaseEntry = async function (req, res, next) {
     try {
         // let data = {
         //     date: req.body.date,
@@ -25,7 +23,7 @@ exports.pur_saleEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        let addData = await Pur_sale.create(req.body);
+        let addData = await Pur_entry.create(req.body);
         res.status(200).json({
             status: "200",
             addData,
@@ -59,29 +57,13 @@ exports.pur_saleEntry = async function (req, res, next) {
 //     }
 // };
 
-exports.pur_sale_trans = async function (req, res, next) {
-    try {
-        let data = req.body;
-        let addData = await pur_sale_trans.create(data);
-        res.status(200).json({
-            status: "200",
-            addData: data,
-        });
-    } catch (err) {
-        res.status(200).json({
-            status: "500",
-            message: err.message,
-        });
-    }
-};
-
-exports.get_pur_saleEntry = async function (req, res, next) {
+exports.get_entry = async function (req, res, next) {
     try {
         let newdata
         if (req.params.type == 'bill') {
-            newdata = await Pur_sale.find({ bill_no: req.params.no });
+            newdata = await Pur_entry.find({ bill_no: req.params.no });
         } else if (req.params.type == 'inv') {
-            newdata = await Pur_sale.find({ inv_no: req.params.no });
+            newdata = await Pur_entry.find({ inv_no: req.params.no });
         }
         res.status(200).json({
             status: "200",
@@ -95,13 +77,13 @@ exports.get_pur_saleEntry = async function (req, res, next) {
     }
 };
 
-exports.update_pur_sale = async function (req, res, next) {
+exports.update_entry = async function (req, res, next) {
     try {
         let newdata
         if (req.params.type == 'bill') {
-            newdata = await Pur_sale.findOneAndUpdate({ bill_no: req.params.no }, req.body);
+            newdata = await Pur_entry.findOneAndUpdate({ bill_no: req.params.no }, req.body);
         } else if (req.params.type == 'inv') {
-            newdata = await Pur_sale.findOneAndUpdate({ inv_no: req.params.no }, req.body);
+            newdata = await Pur_entry.findOneAndUpdate({ inv_no: req.params.no }, req.body);
         }
         res.status(200).json({
             status: "200",
@@ -115,13 +97,13 @@ exports.update_pur_sale = async function (req, res, next) {
     }
 };
 
-exports.delete_pur_sale = async function (req, res, next) {
+exports.delete_entry = async function (req, res, next) {
     try {
         let newdata
         if (req.params.type == 'bill') {
-            newdata = await Pur_sale.findOneAndDelete({ bill_no: req.params.no }, req.body);
+            newdata = await Pur_entry.findOneAndDelete({ bill_no: req.params.no }, req.body);
         } else if (req.params.type == 'inv') {
-            newdata = await Pur_sale.findOneAndDelete({ inv_no: req.params.no }, req.body);
+            newdata = await Pur_entry.findOneAndDelete({ inv_no: req.params.no }, req.body);
         }
         res.status(200).json({
             status: "200",

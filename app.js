@@ -17,7 +17,8 @@ app.use(bodyParser.json());
 app.use(cors({
   origin: '*'
 }))
-app.use("/pur_sale", require("./routes/pur_saleEntry"));
+app.use("/purchase", require("./routes/pur_Entry"));
+app.use("/sale", require("./routes/sale_Entry"));
 app.use("/types", require("./routes/Item"));
 app.use("/party", require("./routes/Party"));
 app.use("/", require("./routes/index"));
