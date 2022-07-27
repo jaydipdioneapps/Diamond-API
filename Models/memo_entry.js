@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
-const saleSchema = mongoose.Schema({
+const memoSchema = mongoose.Schema({
     date: { type: Date, required: true },
-    type: { type: String, required: true },
     inv_no: { type: Number, required: true },
     bill_no: { type: Number, required: true },
     party: { type: String, required: true },
@@ -14,10 +13,6 @@ const saleSchema = mongoose.Schema({
     remark: { type: String, required: true },
     total_carat: { type: Number, required: true },
     amount: { type: Number, required: true },
-    tax_per: { type: Number, required: true },
-    tax_amount: { type: Number, required: true },
-    curr_amount: { type: Number, required: true },
-    final_amount: { type: Number, required: true },
     currency: { type: String, required: true },
     curr_rate: { type: Number, required: true },
     final_amount_local: { type: Number, default: "" },
@@ -27,12 +22,8 @@ const saleSchema = mongoose.Schema({
     remain_amount_local: { type: Number, default: "" },
     cursor_amount: { type: Number, default: "" },
     broker: { type: String, required: true },
-    broker_per: { type: Number, required: true },
-    brok_amount: { type: Number, required: true },
     p_r_type: { type: String, required: true },
     adat: { type: String, required: true },
-    adat_per: { type: Number, required: true },
-    adat_amt: { type: Number, required: true },
     create_user_id: { type: String, default: "" },
     current_date: { type: Date, default: "" },
     current_time: { type: Date, default: "" },
@@ -48,13 +39,10 @@ const saleSchema = mongoose.Schema({
             lotno: { type: String, required: true },
             total_carat: { type: Number, required: true },
             pcs: { type: Number, required: true },
+            remain_carat: { type: Number, required: true },
             carat: { type: Number, required: true },
             rate: { type: Number, required: true },
             amount: { type: Number, required: true },
-            l1: { type: Number, required: true },
-            l2: { type: Number, required: true },
-            net_amount: { type: Number, required: true },
-            kapan: { type: String, required: true },
             remark: { type: String, required: true },
             cost: { type: String, default: "" },
             stock_value: { type: String, default: "" },
@@ -71,4 +59,4 @@ const saleSchema = mongoose.Schema({
     ],
 });
 
-module.exports = mongoose.model("Sale_entry", saleSchema);
+module.exports = mongoose.model("Memo_entry", memoSchema);

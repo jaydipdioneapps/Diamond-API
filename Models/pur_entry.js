@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const purchaseSchema = mongoose.Schema({
-    inv_type: { type: String, required: true },
     date: { type: Date, required: true },
     type: { type: String, required: true },
     inv_no: { type: Number, required: true },
