@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const memo_Entry = require("../Models/memo_entry");
 const moment = require("moment");
+const caratcounter = require("../Models/caratcounter");
 
 exports.memoEntry = async function (req, res, next) {
     try {
@@ -23,10 +24,62 @@ exports.memoEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        let addData = await memo_Entry.create(req.body);
+        // let addData = await memo_Entry.create(req.body);
+
+        let trans_entries = req.body[0].trans_entries;
+        let inMemo = trans_entries.filter((x) => x.status == "IN");
+        let outMemo = trans_entries.filter((x) => x.status == "OUT");
+        // console.log(outMemo);
+        let old = [];
+        let sortEdData = [];
+        inMemo.map((e) => {
+            let arry = old.filter((x) => x == e.refno);
+            if (arry.length) {
+                let num = sortEdData.findIndex((x) => x.refno == e.refno);
+                sortEdData[num].carat = sortEdData[num].carat + e.carat;
+                sortEdData[num].pcs = sortEdData[num].pcs + e.pcs;
+            } else {
+                old.push(e.refno);
+                sortEdData.push(e);
+            }
+        })
+
+        sortEdData.map(async (e) => {
+            let updatedData = await caratcounter.findOne({ refno: e.refno });
+            // console.log(updatedData);
+            updatedData.memo_in = updatedData.memo_in + e.carat;
+            updatedData.pcs = updatedData.pcs + e.pcs;
+
+            await caratcounter.findByIdAndUpdate(updatedData._id, updatedData)
+
+        })
+        sortEdData = [];
+        old = [];
+        outMemo.map((e) => {
+            let arry = old.filter((x) => x == e.refno);
+            if (arry.length) {
+                let num = sortEdData.findIndex((x) => x.refno == e.refno);
+                sortEdData[num].carat = sortEdData[num].carat + e.carat;
+            } else {
+                old.push(e.refno);
+                sortEdData.push(e);
+            }
+        })
+
+        sortEdData.map(async (e) => {
+            let updatedData = await caratcounter.findOne({ refno: e.refno });
+            console.log(updatedData);
+            updatedData.memo_out = updatedData.memo_out + e.carat;
+            updatedData.pcs = updatedData.pcs - e.pcs;
+
+            await caratcounter.findByIdAndUpdate(updatedData._id, updatedData)
+
+        })
         res.status(200).json({
             status: "200",
-            addData,
+            // sortEdData
+            // addData,
+            // data
         });
     } catch (err) {
         res.status(200).json({

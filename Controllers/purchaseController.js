@@ -26,7 +26,6 @@ exports.purchaseEntry = async function (req, res, next) {
         // let data = req.body;
         // let addData = await Pur_entry.create(req.body);
 
-
         let trans_entries = req.body[0].trans_entries;
         let old = [];
         let sortEdData = [];
@@ -37,6 +36,7 @@ exports.purchaseEntry = async function (req, res, next) {
             if (arry.length) {
                 let num = sortEdData.findIndex((x) => x.refno == e.refno);
                 sortEdData[num].carat = sortEdData[num].carat + e.carat;
+                sortEdData[num].pcs = sortEdData[num].pcs + e.pcs;
                 // console.log(num);
             } else {
                 old.push(e.refno);
@@ -49,6 +49,7 @@ exports.purchaseEntry = async function (req, res, next) {
             let result = await caratcounter.findOne({ refno: e.refno });
             let updatedData = result;
             updatedData.purchase = updatedData.purchase + e.carat;
+            updatedData.pcs = updatedData.pcs + e.pcs;
             let update = await caratcounter.findByIdAndUpdate(result._id, updatedData)
             console.log(updatedData);
         })
