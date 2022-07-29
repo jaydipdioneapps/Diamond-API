@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Pur_entry = require("../Models/pur_entry");
 const moment = require("moment");
+const caratcounter = require("../Models/caratcounter");
 
 exports.purchaseEntry = async function (req, res, next) {
     try {
@@ -23,10 +24,39 @@ exports.purchaseEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        let addData = await Pur_entry.create(req.body);
+        // let addData = await Pur_entry.create(req.body);
+
+
+        let trans_entries = req.body[0].trans_entries;
+        let old = [];
+        let sortEdData = [];
+        trans_entries.map((e) => {
+            // console.log(e.refno);
+            // console.log(old.filter((x) => x == e.refno));
+            let arry = old.filter((x) => x == e.refno);
+            if (arry.length) {
+                let num = sortEdData.findIndex((x) => x.refno == e.refno);
+                sortEdData[num].carat = sortEdData[num].carat + e.carat;
+                // console.log(num);
+            } else {
+                old.push(e.refno);
+                sortEdData.push(e);
+            }
+        })
+        // console.log(sortEdData);
+
+        let data = sortEdData.map(async (e) => {
+            let result = await caratcounter.findOne({ refno: e.refno });
+            let updatedData = result;
+            updatedData.purchase = updatedData.purchase + e.carat;
+            let update = await caratcounter.findByIdAndUpdate(result._id, updatedData)
+            console.log(updatedData);
+        })
         res.status(200).json({
             status: "200",
-            addData,
+            sortEdData
+            // addData,
+            // data
         });
     } catch (err) {
         res.status(200).json({
