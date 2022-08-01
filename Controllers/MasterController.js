@@ -1,4 +1,4 @@
-var User = require("../Models/pur_sale");
+var User = require("../Models/pur_entry");
 const mongoose = require("mongoose");
 const Master = require("../Models/master");
 
@@ -22,7 +22,6 @@ exports.MasterEntry = async function (req, res, next) {
         let addData = await Master.create(data);
         res.status(200).json({
             status: "200",
-            addData: data,
         });
     } catch (err) {
         res.status(200).json({
@@ -49,7 +48,7 @@ exports.updatepurchase = async function (req, res, next) {
             })
         res.status(200).json({
             status: "200",
-            data: newdata,
+            // data: newdata,
         });
     } catch (err) {
         res.status(200).json({

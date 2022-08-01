@@ -24,7 +24,7 @@ exports.saleEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        // let addData = await sale_Entry.create(req.body);
+        let addData = await sale_Entry.create(req.body);
 
         let trans_entries = req.body[0].trans_entries;
         let old = [];
@@ -54,7 +54,7 @@ exports.saleEntry = async function (req, res, next) {
         })
         res.status(200).json({
             status: "200",
-            sortEdData
+            // sortEdData
             // addData,
             // data
         });

@@ -5,7 +5,8 @@ const caratcounter = require("../Models/caratcounter");
 
 exports.memoEntry = async function (req, res, next) {
     try {
-        // let data = {
+        // let data
+        // = {
         //     date: req.body.date,
         //     purchaser: req.body.inv_type,
         //     currency: req.body.currency,
@@ -24,7 +25,7 @@ exports.memoEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        // let addData = await memo_Entry.create(req.body);
+        let addData = await memo_Entry.create(req.body);
 
         let trans_entries = req.body[0].trans_entries;
         let inMemo = trans_entries.filter((x) => x.status == "IN");
@@ -120,7 +121,7 @@ exports.get_entry = async function (req, res, next) {
         }
         res.status(200).json({
             status: "200",
-            addData: newdata,
+            newdata
         });
     } catch (err) {
         res.status(200).json({
@@ -161,7 +162,6 @@ exports.delete_entry = async function (req, res, next) {
         res.status(200).json({
             status: "200",
             message: "delete successfully",
-            deleted_data: newdata,
         });
     } catch (err) {
         res.status(200).json({

@@ -1,32 +1,27 @@
 const mongoose = require("mongoose");
-const Pur_entry = require("../Models/pur_entry");
-const moment = require("moment");
+const caratcounter = require("../Models/caratcounter");
+const item_master = require("../Models/item_master");
 
-exports.purchaseEntry = async function (req, res, next) {
+exports.get_carat = async function (req, res, next) {
     try {
-        // let data = {
-        //     date: req.body.date,
-        //     purchaser: req.body.inv_type,
-        //     currency: req.body.currency,
-        //     curr_rate: req.body.curr_rate,
-        //     bill_no: req.body.bill_no,
-        //     Invoice_no: req.body.Invoice_no,
-        //     party: req.body.party,
-        //     broker: req.body.broker,
-        //     due_days: req.body.due_days,
-        //     due_date: req.body.due_date,
-        //     over_due: req.body.over_due,
-        //     over_due_date: req.body.over_due_date,
-        //     type: req.body.type,
-        //     p_r_type: req.body.p_r_type,
-        //     adat: req.body.adat,
-        //     adat_amt: req.body.adat_amt,
-        // };
-        // let data = req.body;
-        let addData = await Pur_entry.create(req.body);
+        let newArry = [];
+        let newdata = await caratcounter.find();
+        for (let i = 0; i < newdata.length; i++) {
+            let lotdata = await item_master.findOne({ refno: newdata[i].refno }, {
+                lotno: 1
+            });
+            let newObj = {
+                refno: newdata[i].refno,
+                lotno: lotdata.lotno,
+                total_carat: newdata[i].purchase + newdata[i].memo_in - newdata[i].sale - newdata[i].memo_out,
+            }
+            newArry.push(newObj);
+        }
+        // newdata.map(async (e, i) => {
+        // })
         res.status(200).json({
             status: "200",
-            addData,
+            newArry
         });
     } catch (err) {
         res.status(200).json({
@@ -35,4 +30,3 @@ exports.purchaseEntry = async function (req, res, next) {
         });
     }
 };
-

@@ -35,7 +35,6 @@ exports.TypeEntry = async function (req, res, next) {
         let addData = await Type.create(data);
         res.status(200).json({
             status: "200",
-            addData: data,
         });
     } catch (err) {
         res.status(200).json({
@@ -62,7 +61,6 @@ exports.updatepurchase = async function (req, res, next) {
             })
         res.status(200).json({
             status: "200",
-            data: newdata,
         });
     } catch (err) {
         res.status(200).json({
@@ -86,7 +84,7 @@ exports.gettypes = async function (req, res, next) {
         Primery_arry = [Primery_arry];
         res.status(200).json({
             status: "200",
-            Primery_arry,
+            Primery_arry
         });
     } catch (err) {
         res.status(200).json({

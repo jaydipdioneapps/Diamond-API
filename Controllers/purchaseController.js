@@ -24,7 +24,7 @@ exports.purchaseEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        // let addData = await Pur_entry.create(req.body);
+        let addData = await Pur_entry.create(req.body);
 
         let trans_entries = req.body[0].trans_entries;
         let old = [];
@@ -43,7 +43,7 @@ exports.purchaseEntry = async function (req, res, next) {
                 sortEdData.push(e);
             }
         })
-        // console.log(sortEdData);
+        // // console.log(sortEdData);
 
         let data = sortEdData.map(async (e) => {
             let result = await caratcounter.findOne({ refno: e.refno });
@@ -55,7 +55,6 @@ exports.purchaseEntry = async function (req, res, next) {
         })
         res.status(200).json({
             status: "200",
-            sortEdData
             // addData,
             // data
         });
@@ -98,7 +97,6 @@ exports.get_entry = async function (req, res, next) {
         }
         res.status(200).json({
             status: "200",
-            addData: newdata,
         });
     } catch (err) {
         res.status(200).json({
@@ -118,7 +116,6 @@ exports.update_entry = async function (req, res, next) {
         }
         res.status(200).json({
             status: "200",
-            data: newdata,
         });
     } catch (err) {
         res.status(200).json({
@@ -139,7 +136,6 @@ exports.delete_entry = async function (req, res, next) {
         res.status(200).json({
             status: "200",
             message: "delete successfully",
-            deleted_data: newdata,
         });
     } catch (err) {
         res.status(200).json({

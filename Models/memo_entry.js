@@ -46,7 +46,7 @@ const memoSchema = mongoose.Schema({
             remark: { type: String, required: true },
             cost: { type: String, default: "" },
             stock_value: { type: String, default: "" },
-            status: { type: String, default: "" },
+            status: { type: Boolean, default: false },
             create_user_id: { type: String, default: "" },
             current_date: { type: Date, default: "" },
             current_time: { type: Date, default: "" },

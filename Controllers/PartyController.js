@@ -16,7 +16,6 @@ exports.partyEntry = async function (req, res, next) {
         let addData = await PartyMaster.create(req.body);
         res.status(200).json({
             status: "200",
-            addData,
         });
     } catch (err) {
         res.status(200).json({
