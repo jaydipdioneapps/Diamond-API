@@ -97,6 +97,7 @@ exports.get_entry = async function (req, res, next) {
         }
         res.status(200).json({
             status: "200",
+            addData: newdata
         });
     } catch (err) {
         res.status(200).json({
