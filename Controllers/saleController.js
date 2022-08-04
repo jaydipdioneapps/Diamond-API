@@ -26,7 +26,7 @@ exports.saleEntry = async function (req, res, next) {
         // let data = req.body;
         let addData = await sale_Entry.create(req.body);
 
-        let trans_entries = req.body[0].trans_entries;
+        let trans_entries = req.body.trans_entries;
         let old = [];
         let sortEdData = [];
         trans_entries.map((e) => {

@@ -27,7 +27,7 @@ exports.memoEntry = async function (req, res, next) {
         // let data = req.body;
         let addData = await memo_Entry.create(req.body);
 
-        let trans_entries = req.body[0].trans_entries;
+        let trans_entries = req.body.trans_entries;
         let inMemo = trans_entries.filter((x) => x.status == "IN");
         let outMemo = trans_entries.filter((x) => x.status == "OUT");
         // console.log(outMemo);

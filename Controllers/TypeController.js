@@ -137,3 +137,30 @@ exports.getEntryType = async function (req, res, next) {
         });
     }
 }
+
+exports.getaccountType = async function (req, res, next) {
+    try {
+        // let fromCurrency = "USD";
+        // let toCurrency = "PKR";
+        // let amountToConvert = 1;
+        //   let currencyConverter = new CC({
+        //     form: fromCurrency,
+        //     to: toCurrency,
+        //     amount: 3,
+        //   });
+        let account = await party_master.find({ $or: [{ account_type: "bank" }, { account_type: "cash" }] },
+            {
+                name: 1,
+            });
+
+        res.status(200).json({
+            status: "200",
+            account,
+        });
+    } catch (err) {
+        res.status(200).json({
+            status: "500",
+            message: err.message,
+        });
+    }
+}
