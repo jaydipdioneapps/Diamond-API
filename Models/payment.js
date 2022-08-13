@@ -5,7 +5,7 @@ const paymentSchema = mongoose.Schema({
     account: { type: String, ref: "Item_master", required: true },
     voucher: { type: String, default: "" },
     party: { type: String, default: "" },
-    payment_type: { type: Boolean, default: "" },
+    payment_type: { type: String, default: "" },
     credit_debit: { type: String, default: "" },
     currency: { type: String, default: "" },
     usd: { type: String, default: "" },
