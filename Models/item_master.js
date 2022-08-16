@@ -9,7 +9,7 @@ const Item_masterSchema = mongoose.Schema({
     size: { type: mongoose.Schema.Types.ObjectId, ref: 'Type' },
     lotno: { type: String, default: "" },
     kapan: { type: String, default: "" },
-    asking_rate: { type: String, default: "" },
+    asking_rate: { type: Number, default: 0 },
     cost: { type: String, default: "" },
     stock_value: { type: String, default: "" },
     remarks: { type: String, default: "" },

@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const Pur_entry = require("../Models/pur_entry");
-const moment = require("moment");
+// const moment = require("moment");
 const caratcounter = require("../Models/caratcounter");
 
 exports.purchaseEntry = async function (req, res, next) {
@@ -24,7 +24,7 @@ exports.purchaseEntry = async function (req, res, next) {
         //     adat_amt: req.body.adat_amt,
         // };
         // let data = req.body;
-        let addData = await Pur_entry.create(req.body);
+        await Pur_entry.create(req.body);
 
         let trans_entries = req.body.trans_entries;
         let old = [];
@@ -45,7 +45,7 @@ exports.purchaseEntry = async function (req, res, next) {
         })
         // // console.log(sortEdData);
 
-        let data = sortEdData.map(async (e) => {
+        sortEdData.map(async (e) => {
             let result = await caratcounter.findOne({ refno: e.refno });
             let updatedData = result;
             updatedData.purchase = updatedData.purchase + e.carat;
