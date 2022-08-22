@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const caratcounterSchema = mongoose.Schema({
-    refno: { type: Number, require: true, unique: true },
+    refno: { type: String, require: true, unique: true },
     purchase: { type: Number, default: "0" },
     memo_in: { type: Number, default: "0" },
     memo_out: { type: Number, default: "0" },
