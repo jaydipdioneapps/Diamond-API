@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Type = require("../Models/Type");
 const CC = require("currency-converter-lt");
 const party_master = require("../Models/party_master");
-const pur_sale = require("../Models/pur_entry");
+const Pur_entry = require("../Models/pur_entry");
 
 function removeDubeliment(arr) {
     let duplicateIds = Object.values(
@@ -44,23 +44,13 @@ exports.TypeEntry = async function (req, res, next) {
     }
 };
 
-exports.updatepurchase = async function (req, res, next) {
+exports.updateType = async function (req, res, next) {
     try {
-        let newdata = await User.findByIdAndUpdate(req.body.userId,
-            {
-                purchase: req.body.purchase,
-                bill_no: req.body.bill_no,
-                party: req.body.party,
-                broker: req.body.broker,
-                over_due: req.body.over_due,
-                type: req.body.type,
-                p_r_type: req.body.p_r_type,
-                adat: req.body.adat,
-                adat_amt: req.body.adat_amt,
-                over_due_date: req.body.over_due_date
-            })
+        let data = await Type.findOneAndUpdate({ type: req.params.type, priority: req.body.priority }, req.body);
+        // let newdata = await Type.find({ bill_no: req.params.no }, req.body);
         res.status(200).json({
             status: "200",
+            data
         });
     } catch (err) {
         res.status(200).json({
@@ -68,7 +58,7 @@ exports.updatepurchase = async function (req, res, next) {
             message: err.message,
         });
     }
-};
+}
 
 exports.gettypes = async function (req, res, next) {
     try {
@@ -104,7 +94,7 @@ exports.getEntryType = async function (req, res, next) {
         //     to: toCurrency,
         //     amount: 3,
         //   });
-        let invoice = await pur_sale.find({}, { inv_no: 1 }).sort({ "inv_no": -1 }).limit(1)
+        let invoice = await pur_entry.find({}, { inv_no: 1 }).sort({ "inv_no": -1 }).limit(1)
         // console.log(invoice);
         let currencyConverter = new CC({ from: "USD", to: "INR", amount: 1 })
         let addData = await Type.find({ type: "ENTRY_TYPE" },
