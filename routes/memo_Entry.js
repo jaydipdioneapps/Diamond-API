@@ -10,5 +10,6 @@ router.get("/:type/:no", AuthController.protectGlobal, memoController.get_entry)
 router.get("/carat", AuthController.protectGlobal, caratController.get_carat);
 // router.get("/pur_memoEntry", AuthController.protectGlobal, memoController.get_pur_memoEntry);
 router.delete("/:type/:no", AuthController.protectGlobal, memoController.delete_entry);
+router.post("/report", AuthController.protectGlobal, memoController.memoReport);
 
 module.exports = router;

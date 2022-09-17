@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const stock_trans = require("../Models/stock_trans");
+const Item_entry = require("../Models/item_master");
 
 exports.StocktransEntry = async function (req, res, next) {
     try {
@@ -30,3 +31,5 @@ exports.get_stocktrans = async function (req, res, next) {
         });
     }
 };
+
+

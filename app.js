@@ -24,7 +24,6 @@ app.use("/payment", require("./routes/payment"));
 app.use("/expense", require("./routes/expense"));
 app.use("/ledger", require("./routes/ledger"));
 app.use("/stocktrans", require("./routes/Stock_trans"));
-app.use("/payment", require("./routes/"));
 app.use("/types", require("./routes/typeEntry"));
 app.use("/party", require("./routes/Party"));
 app.use("/", require("./routes/index"));

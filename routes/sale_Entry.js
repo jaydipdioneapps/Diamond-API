@@ -8,5 +8,6 @@ router.patch("/:type/:no", AuthController.protectGlobal, saleController.update_e
 router.get("/:type/:no", AuthController.protectGlobal, saleController.get_entry);
 // router.get("/pur_saleEntry", AuthController.protectGlobal, saleController.get_pur_saleEntry);
 router.delete("/:type/:no", AuthController.protectGlobal, saleController.delete_entry);
+router.post("/report", AuthController.protectGlobal, saleController.saleReport);
 
 module.exports = router;

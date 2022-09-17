@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const caratcounter = require("../Models/caratcounter");
 const item_master = require("../Models/item_master");
 
